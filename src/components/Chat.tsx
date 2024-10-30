@@ -6,27 +6,38 @@ import { sendMessage } from '../api';
 
 const Chat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSendMessage = async (text: string) => {
     const newMessage: Message = { text, sender: 'user' };
     setMessages((prevMessages) => [...prevMessages, newMessage]);
+    setIsLoading(true);
 
     try {
-        // Llama a la función de la API en lugar de hacer la solicitud directamente aquí
-        const response = await sendMessage(text);
-        setMessages((prevMessages) => [...prevMessages, { text: response.reply, sender: 'bot' }]);
-      } catch (error) {
-        console.error('Error al enviar el mensaje', error);
-      }
+      const response = await sendMessage(text);
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: response.text, sender: response.sender },
+      ]);
+    } catch (error) {
+      console.error('Error al enviar el mensaje', error);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          text: 'Lo siento, no puedo responder en este momento',
+          sender: 'bot',
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="container mx-auto p-4">
-       <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-      <div className="chat-box bg-gray-100 p-4 rounded shadow-lg">
-        <MessageList messages={messages} />
+    <div className='flex justify-center items-center h-screen '>
+      <div className='chat-box bg-gray-100 p-4 rounded shadow-lg w-[800px]'>
+        <MessageList messages={messages} isLoading={isLoading} />
         <MessageInput onSend={handleSendMessage} />
       </div>
     </div>

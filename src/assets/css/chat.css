@@ -1,0 +1,30 @@
+/* Chat.css */
+@keyframes typing {
+  0%,
+  20% {
+    opacity: 0;
+  }
+  20%,
+  40% {
+    opacity: 1;
+  }
+  40%,
+  60% {
+    opacity: 0;
+  }
+  60%,
+  80% {
+    opacity: 1;
+  }
+  80%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.typing-dots {
+  display: inline-block;
+  width: 0.4em;
+  height: 0.4em;
+  animation: typing 1.5s infinite;
+}
