@@ -9,7 +9,9 @@ interface ChatResponse {
 // Función para enviar el mensaje a la API y recibir la respuesta
 export const sendMessage = async (message: string): Promise<ChatResponse> => {
   return axios
-    .post<ChatResponse>('http://127.0.0.1:5000/api/chat', { message })
+    .post<ChatResponse>(import.meta.env.VITE_FUNCTION_API_URL, {
+      message: message,
+    })
     .then((response) => {
       console.log(response.data);
 
