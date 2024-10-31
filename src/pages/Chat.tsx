@@ -38,7 +38,6 @@ const Chat: React.FC = () => {
         'messages',
         user ? user.uid : ''
       );
-      console.log(response);
       return response;
     } catch (error) {
       console.error('Error al obtener los mensajes', error);

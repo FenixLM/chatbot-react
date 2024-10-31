@@ -21,12 +21,34 @@ const MessageList: React.FC<MessageListProps> = ({
   const welcomeMessage = {
     sender: 'katthy',
     text: 'Hola, soy Katthy, tu asesora virtual especializada en calzado. ¿En qué puedo ayudarte?',
+    createdAt: null,
   };
   const allMessages = [welcomeMessage, ...messages];
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [allMessages]);
+
+  const handleGetTime = (createdAt: any) => {
+    // Convertir a milisegundos
+    const timestamp = createdAt.seconds * 1000;
+
+    // Crear objeto Date
+    const date = new Date(timestamp);
+
+    // Formatear la hora
+    const formattedTime = date.toLocaleTimeString('es-PE', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true, // Habilitar formato de 12 horas
+    });
+
+    const formattedTimeWithSuffix = formattedTime
+      .replace('AM', 'a. m.')
+      .replace('PM', 'p. m.');
+    return formattedTimeWithSuffix;
+  };
 
   return (
     <div className='message-list overflow-y-auto h-[500px] p-4'>
@@ -54,7 +76,11 @@ const MessageList: React.FC<MessageListProps> = ({
           <div className='chat-footer opacity-50'>
             <time className='text-xs opacity-50'>
               {' '}
-              {new Date().toLocaleTimeString()}
+              {msg.createdAt === null
+                ? '--:--'
+                : msg.createdAt
+                ? handleGetTime(msg.createdAt)
+                : new Date().toLocaleTimeString()}
             </time>
           </div>
         </div>
