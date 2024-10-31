@@ -1,14 +1,13 @@
-
-import './App.css'
-import Chat from './components/Chat'
+import './App.css';
+import { AuthContextProvider } from './context/AuthContext';
+import { MyRoutes } from './routes/routes';
 
 function App() {
-
   return (
-    <>
-    <Chat />
-    </>
-  )
+    <AuthContextProvider>
+      <MyRoutes />
+    </AuthContextProvider>
+  );
 }
 
-export default App
+export default App;

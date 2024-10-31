@@ -9,6 +9,28 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
       rel="stylesheet"
     />
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XPHSBWNG3T"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+      if (
+        window.location.hostname === 'chat-ia-vectores.web.app' ||
+        window.location.hostname === 'chat-ia-vectores.firebaseapp.com'
+      ) {
+        gtag('config', 'G-XPHSBWNG3T');
+      } else {
+        // Opcional: Código para entorno local o desarrollo
+        console.log('Entorno de desarrollo: Google Analytics no se carga.');
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

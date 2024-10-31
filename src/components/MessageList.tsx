@@ -4,13 +4,19 @@ import imgUser from '../assets/img/profile-user.png';
 import imgBot from '../assets/img/profile-bot.png';
 
 import '../assets/css/chat.css';
+import { User } from 'firebase/auth';
 
 interface MessageListProps {
   messages: Message[];
   isLoading: boolean;
+  user: User | null | undefined;
 }
 
-const MessageList: React.FC<MessageListProps> = ({ messages, isLoading }) => {
+const MessageList: React.FC<MessageListProps> = ({
+  messages,
+  isLoading,
+  user,
+}) => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -33,8 +39,8 @@ const MessageList: React.FC<MessageListProps> = ({ messages, isLoading }) => {
                 src={msg.sender === 'user' ? imgUser : imgBot}
               />
             </div>
-            <h6 className='chat-name font-bold capitalize text-center'>
-              {msg.sender}
+            <h6 className='chat-name font-bold capitalize text-center truncate max-w-28'>
+              {msg.sender === 'user' ? user?.displayName : 'Katthy'}
             </h6>
           </div>
 
