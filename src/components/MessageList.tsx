@@ -18,14 +18,19 @@ const MessageList: React.FC<MessageListProps> = ({
   user,
 }) => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const welcomeMessage = {
+    sender: 'katthy',
+    text: 'Hola, soy Katthy, tu asesora virtual especializada en calzado. ¿En qué puedo ayudarte?',
+  };
+  const allMessages = [welcomeMessage, ...messages];
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [allMessages]);
 
   return (
     <div className='message-list overflow-y-auto h-[500px] p-4'>
-      {messages.map((msg, index) => (
+      {allMessages.map((msg, index) => (
         <div
           key={index}
           className={`chat ${
